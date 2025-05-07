@@ -81,7 +81,8 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
     try {
         if (assignment_group.course_id == course_info.id) {
             if (submissions_as_arr.length === 0) {
-                throw new Error("submissions_as_arr is empty")
+                // array should not be empty
+                throw new Error("submissions_as_arr is empty");
             }
             const learner_data = [];
             const assignments = assignment_group.assignments;
@@ -126,11 +127,11 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                                     max_points = assignment.points_possible;
                                     if (max_points === 0) {
                                         // an assignment's possible points should not be 0
-                                        throw new Error(`possible_points cannot be 0 (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`)
+                                        throw new Error(`possible_points cannot be 0 (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
                                     }
                                     else if (max_points <= 0) {
                                         // an assignment's possible points should be positive
-                                        throw new Error(`possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`)
+                                        throw new Error(`possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
                                     }
 
                                     // account for late submissions
@@ -200,6 +201,7 @@ function calculateAverage(learner_data, assignment_data) {
                             const possible_points = assignment.points_possible;
                             points += learner[property] * possible_points;
                             if (isNaN(points))
+                                // points should be numbers
                                 throw new Error("Cannot add number and not-a-number");
                             total_possible_points += possible_points;
                             break;
