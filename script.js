@@ -79,13 +79,13 @@ const LearnerSubmissions = [
 
 function getLearnerData(course_info, assignment_group, submissions_as_arr) {
     if (assignment_group.course_id == course_info.id) {
-        let learner_data = [];
-        let assignments = assignment_group.assignments;
+        const learner_data = [];
+        const assignments = assignment_group.assignments;
 
         // get unique learner IDs as objects
         submissions_loop:
-        for (let submission of submissions_as_arr) {
-            for (let learner of learner_data) {
+        for (const submission of submissions_as_arr) {
+            for (const learner of learner_data) {
                 if (learner.id == submission.learner_id) {
                     continue submissions_loop;
                 }
@@ -94,13 +94,13 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
         }
 
         // get submissions by student
-        for (let learner of learner_data) {
-            let learner_id = learner.id;
-            for (let submission of submissions_as_arr) {
+        for (const learner of learner_data) {
+            const learner_id = learner.id;
+            for (const submission of submissions_as_arr) {
                 if (submission.learner_id == learner_id) {
-                    let assignment_id = submission.assignment_id;
+                    const assignment_id = submission.assignment_id;
                     let max_points;
-                    for (let assignment of assignments) {
+                    for (const assignment of assignments) {
                         if (assignment.id == assignment_id) {
                             max_points = assignment.points_possible;
                             break;
@@ -112,11 +112,11 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
         }
 
         // calculate average per student
-        for (let learner of learner_data) {
+        for (const learner of learner_data) {
             let average = 0;
             let assignment_count = 0;;
 
-            for (let property in learner) {
+            for (const property in learner) {
                 if (property.startsWith("assignment")) {
                     average += learner[property];
                     assignment_count++;
