@@ -102,6 +102,12 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                     let max_points;
                     for (const assignment of assignments) {
                         if (assignment.id == assignment_id) {
+                            if (assignment.points_possible === 0) {
+                                throw new Error(`An assignment's possible_points cannot be 0 (assignment_group=${assignment_group.id}, assignment_id=${assignment.id}).`)
+                            }
+                            else if (assignment.points_possible <= 0) {
+                                throw new Error(`An assignment's possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id}).`)
+                            }
                             max_points = assignment.points_possible;
                             break;
                         }
@@ -128,6 +134,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
         return learner_data;
     }
     else {
+        // match assignment_group's course_id with course_info's id
         throw new Error(`The assignment group's course_id (${assignment_group.course_id}) does not match the provided course info id (${course_info.id}).`);
     }
 }
