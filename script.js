@@ -99,7 +99,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             for (const submission of submissions_as_arr) {
                 if (submission.learner_id == learner_id) {
                     const assignment_id = submission.assignment_id;
-                    const submitted_at = submission.submission.submitted_at.split("-").slice(0, 3).map((_) => Number(_));
+                    const submitted_at = submission.submission.submitted_at.split("-").slice(0, 2).map((_) => Number(_));
                     let score = submission.submission.score;
                     let max_points;
                     for (const assignment of assignments) {
@@ -140,7 +140,9 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                                 }
                             }
                             if (late) {
-                                score *= 0.9;
+                                score -= max_points * 0.1;
+                                if (score < 0)
+                                    score = 0;
                             }
 
                             score /= max_points;
