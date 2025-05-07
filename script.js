@@ -130,11 +130,12 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                             if (late) {
                                 score *= 0.9;
                             }
+
+                            score /= max_points;
+                            learner["assignment_" + assignment_id] = score;
                             break;
                         }
                     }
-                    score /= max_points;
-                    learner["assignment_" + assignment_id] = score;
                 }
             }
         }
