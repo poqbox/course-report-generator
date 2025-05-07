@@ -99,6 +99,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             for (const submission of submissions_as_arr) {
                 if (submission.learner_id == learner_id) {
                     const assignment_id = submission.assignment_id;
+                    let score = submission.submission.score;
                     let max_points;
                     for (const assignment of assignments) {
                         if (assignment.id == assignment_id) {
@@ -111,10 +112,29 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                                 throw new Error(`An assignment's possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id}).`)
                             }
                             max_points = assignment.points_possible;
+
+                            // account for late submissions
+                            let late = false;
+                            let submitted_at = submission.submission.submitted_at.split("-").map((_) => Number(_));
+                            let due_date = assignment.due_at.split("-").map((_) => Number(_));
+                            if (submitted_at[0] > due_date[0])
+                                late = true;
+                            else if (submitted_at[0] === due_date[0]){
+                                if (submitted_at[1] > due_date[1])
+                                    late = true;
+                                else if (submitted_at[1] === due_date[1]){
+                                    if (submitted_at[2] > due_date[2])
+                                        late = true;
+                                }
+                            }
+                            if (late) {
+                                score *= 0.9;
+                            }
                             break;
                         }
                     }
-                    learner["assignment_" + assignment_id] = submission.submission.score/max_points;
+                    score /= max_points;
+                    learner["assignment_" + assignment_id] = score;
                 }
             }
         }
