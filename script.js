@@ -232,5 +232,6 @@ function logLearnerData(learner_data) {
 
 const current_date = [2025, 1, 1];
 const id_prefix = "#";
+
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 logLearnerData(data);
