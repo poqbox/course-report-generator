@@ -146,7 +146,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                             }
 
                             score /= max_points;
-                            learner["#" + assignment_id] = score;
+                            learner[id_prefix + assignment_id] = score;
                             break;
                         }
                     }
@@ -160,7 +160,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             let assignment_count = 0;;
 
             for (const property in learner) {
-                if (property.startsWith("#")) {
+                if (property.startsWith(id_prefix)) {
                     average += learner[property];
                     assignment_count++;
                 }
@@ -191,5 +191,6 @@ function logLearnerData(learner_data) {
 
 
 const current_date = [2025, 1, 1];
+const id_prefix = "#";
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 logLearnerData(data);
