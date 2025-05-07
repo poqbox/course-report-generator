@@ -155,31 +155,38 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
         }
 
         // calculate average per student
-        for (const learner of learner_data) {
-            let points = 0;
-            let total_possible_points = 0;
-
-            for (const property in learner) {
-                if (property.startsWith(id_prefix)) {
-                    let id = property.slice(id_prefix.length);
-                    for (let assignment of assignment_group.assignments) {
-                        if (assignment.id == id) {
-                            let possible_points = assignment.points_possible;
-                            points += learner[property] * possible_points;
-                            total_possible_points += assignment.points_possible;
-                            break;
-                        }
-                    }
-                }
-            }
-            learner.avg = points/total_possible_points;
-        }
+        calculateAverage(learner_data, assignment_group);
 
         return learner_data;
     }
     else {
         // match assignment_group's course_id with course_info's id
         throw new Error(`The assignment group's course_id (${assignment_group.course_id}) does not match the provided course info id (${course_info.id}).`);
+    }
+}
+
+
+function calculateAverage(learner_data, assignment_data) {
+    for (const learner of learner_data) {
+        let points = 0;
+        let total_possible_points = 0;
+
+        for (const property in learner) {
+            if (property.startsWith(id_prefix)) {
+
+                // get assignment weights
+                const id = property.slice(id_prefix.length);
+                for (const assignment of assignment_data.assignments) {
+                    if (assignment.id == id) {
+                        const possible_points = assignment.points_possible;
+                        points += learner[property] * possible_points;
+                        total_possible_points += possible_points;
+                        break;
+                    }
+                }
+            }
+        }
+        learner.avg = points/total_possible_points;
     }
 }
 
