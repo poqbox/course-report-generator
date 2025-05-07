@@ -112,11 +112,23 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                                 throw new Error(`An assignment's possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id}).`)
                             }
                             max_points = assignment.points_possible;
+                            let due_date = assignment.due_at.split("-").map((_) => Number(_));
+
+                            // account for not-yet-due assignments
+                            if (due_date[0] > current_date[0])
+                                break;
+                            else if (due_date[0] === current_date[0]){
+                                if (due_date[1] > current_date[1])
+                                    break;
+                                else if (due_date[1] === current_date[1]){
+                                    if (due_date[2] > current_date[2])
+                                        break;
+                                }
+                            }
 
                             // account for late submissions
                             let late = false;
                             let submitted_at = submission.submission.submitted_at.split("-").map((_) => Number(_));
-                            let due_date = assignment.due_at.split("-").map((_) => Number(_));
                             if (submitted_at[0] > due_date[0])
                                 late = true;
                             else if (submitted_at[0] === due_date[0]){
@@ -176,5 +188,6 @@ function logLearnerData(learner_data) {
 }
 
 
+const current_date = [2025, 1, 1];
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 logLearnerData(data);
