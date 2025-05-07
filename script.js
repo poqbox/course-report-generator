@@ -144,7 +144,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                             }
 
                             score /= max_points;
-                            learner["assignment_" + assignment_id] = score;
+                            learner["#" + assignment_id] = score;
                             break;
                         }
                     }
@@ -158,7 +158,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             let assignment_count = 0;;
 
             for (const property in learner) {
-                if (property.startsWith("assignment")) {
+                if (property.startsWith("#")) {
                     average += learner[property];
                     assignment_count++;
                 }
