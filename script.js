@@ -156,16 +156,23 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
 
         // calculate average per student
         for (const learner of learner_data) {
-            let average = 0;
-            let assignment_count = 0;;
+            let points = 0;
+            let total_possible_points = 0;
 
             for (const property in learner) {
                 if (property.startsWith(id_prefix)) {
-                    average += learner[property];
-                    assignment_count++;
+                    let id = property.slice(id_prefix.length);
+                    for (let assignment of assignment_group.assignments) {
+                        if (assignment.id == id) {
+                            let possible_points = assignment.points_possible;
+                            points += learner[property] * possible_points;
+                            total_possible_points += assignment.points_possible;
+                            break;
+                        }
+                    }
                 }
             }
-            learner.avg = average/assignment_count;
+            learner.avg = points/total_possible_points;
         }
 
         return learner_data;
