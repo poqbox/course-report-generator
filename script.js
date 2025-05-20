@@ -232,8 +232,58 @@ function logLearnerData(learner_data) {
 }
 
 
+function dataToText(learner_data) {
+    let output = "Data:"
+    for (let i=0; i < learner_data.length; i++) {
+        let learner_obj = learner_data[i]
+        output += "\n{"
+        for (let property in learner_obj) {
+            output += `\n    ${property}: ${learner_obj[property]}`
+        }
+        output += "\n}"
+    }
+    return output
+}
+
+
+function dataToCsv(learner_data) {
+    let output = Object.keys(learner_data[0]).join(",")
+    for (let i=0; i < learner_data.length; i++) {
+        output += "\n" + Object.values(learner_data[i]).join(",")
+    }
+    return output
+}
+
+
 const current_date = [2025, 1, 1];
 const id_prefix = "#";
 
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 logLearnerData(data);
+
+
+
+
+const outputBoxEl = document.getElementById("output-box")
+outputBoxEl.append(dataToCsvElement(data))
+
+
+function dataToTextElement(data) {
+    const el = document.createElement("pre")
+    el.textContent = dataToText(data)
+    return el
+}
+
+
+function dataToCsvElement(data) {
+    const el = document.createElement("pre")
+    el.textContent = dataToCsv(data)
+    return el
+}
+
+
+function dataToJsonElement(data) {
+    const el = document.createElement("pre")
+    el.textContent = JSON.stringify(data)
+    return el
+}
