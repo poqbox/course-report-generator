@@ -1,0 +1,10 @@
+body {
+    margin-bottom: 800px;
+}
+
+
+#main, body>h1 {
+    margin: auto;
+    max-width: 800px;
+    width: 100%;
+}
