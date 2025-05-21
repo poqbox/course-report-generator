@@ -313,35 +313,20 @@ function dataToTableElement(data) {
 
 
 // output nav bar
+let nav_data = [
+    {text: "Output", element_creator: dataToTextElement},
+    {text: ".csv", element_creator: dataToCsvElement},
+    {text: ".json", element_creator: dataToJsonElement},
+    {text: "table", element_creator: dataToTableElement}
+]
+
 let outputNavEl = document.getElementById("output-switcher")
-let textOutputNav = outputNavEl.appendChild(document.createElement("a"))
-textOutputNav.textContent = "Output"
-textOutputNav.addEventListener("click", (e) => {
-    e.preventDefault()
-    outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToTextElement(data))
-})
-
-let csvOutputNav = outputNavEl.appendChild(document.createElement("a"))
-csvOutputNav.textContent = ".csv"
-csvOutputNav.addEventListener("click", (e) => {
-    e.preventDefault()
-    outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToCsvElement(data))
-})
-
-let jsonOutputNav = outputNavEl.appendChild(document.createElement("a"))
-jsonOutputNav.textContent = ".json"
-jsonOutputNav.addEventListener("click", (e) => {
-    e.preventDefault()
-    outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToJsonElement(data))
-})
-
-let tableOutputNav = outputNavEl.appendChild(document.createElement("a"))
-tableOutputNav.textContent = "table"
-tableOutputNav.addEventListener("click", (e) => {
-    e.preventDefault()
-    outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToTableElement(data))
-})
+for (let obj of nav_data) {
+    let nav_item = outputNavEl.appendChild(document.createElement("a"))
+    nav_item.textContent = obj.text
+    nav_item.addEventListener("click", (e) => {
+        e.preventDefault()
+        outputBoxEl.innerHTML = ""
+        outputBoxEl.append(obj.element_creator(data))
+    })
+}
