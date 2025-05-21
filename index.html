@@ -8,6 +8,27 @@
 </head>
 <body>
     <h1>Course Report Generator</h1>
+    <div id="input-sidebar">
+        <form>
+            <fieldset>
+                <h2>Course Info</h2>
+                <input name="course-id" type="text" required><br>
+                <input name="course-name" type="text"><br>
+            </fieldset>
+
+            <fieldset>
+            <h2>Assignment Group</h2>
+                <input name="group-id" type="text" required><br>
+                <input name="group-name" type="text" required><br>
+                <input name="course-id-ref" type="text" required><br>
+                <input name="group-weight" type="text" required><br>
+            </fieldset>
+
+            <fieldset>
+                <h2>Learner Submissions</h2>
+            </fieldset>
+        </form>
+    </div>
     <div id="main">
         <div id="output-container">
             <nav id="output-switcher"></nav>

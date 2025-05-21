@@ -36,3 +36,10 @@ pre {
         padding: 4px;
     }
 }
+
+
+#input-sidebar {
+    position: fixed;
+    top: 40px;
+    right: 0;
+}
