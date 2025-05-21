@@ -265,7 +265,7 @@ logLearnerData(data);
 
 
 const outputBoxEl = document.getElementById("output-box")
-outputBoxEl.append(dataToTableElement(data))
+outputBoxEl.append(dataToTextElement(data))
 
 
 function dataToTextElement(data) {
