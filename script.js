@@ -219,19 +219,6 @@ function calculateAverage(learner_data, assignment_data) {
 }
 
 
-function logLearnerData(learner_data) {
-    console.log("Data:");
-    for (let i=0; i < learner_data.length; i++) {
-        let learner_obj = learner_data[i];
-        console.log("{");
-        for (let property in learner_obj) {
-            console.log(`    ${property}: ${learner_obj[property]}`);
-        }
-        console.log("}");
-    }
-}
-
-
 function dataToText(learner_data) {
     let output = "Data:"
     for (let i=0; i < learner_data.length; i++) {
@@ -259,8 +246,7 @@ const current_date = [2025, 1, 1];
 const id_prefix = "#";
 
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-logLearnerData(data);
-
+console.log(dataToText(data))
 
 
 
