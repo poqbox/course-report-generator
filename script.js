@@ -265,7 +265,7 @@ logLearnerData(data);
 
 
 const outputBoxEl = document.getElementById("output-box")
-outputBoxEl.append(dataToCsvElement(data))
+outputBoxEl.append(dataToTableElement(data))
 
 
 function dataToTextElement(data) {
@@ -285,5 +285,26 @@ function dataToCsvElement(data) {
 function dataToJsonElement(data) {
     const el = document.createElement("pre")
     el.textContent = JSON.stringify(data)
+    return el
+}
+
+
+function dataToTableElement(data) {
+    const el = document.createElement("table")
+    const th = el.appendChild(document.createElement("thead"))
+    const tb = el.appendChild(document.createElement("tbody"))
+
+    let header_row = th.appendChild(document.createElement("tr"))
+    for (let key of Object.keys(data[0])) {
+        let td = header_row.appendChild(document.createElement("td"))
+        td.textContent = key
+    }
+    for (let obj of data) {
+        const tr = tb.appendChild(document.createElement("tr"))
+        for (let value of Object.values(obj)) {
+            const td = tr.appendChild(document.createElement("td"))
+            td.textContent = value
+        }
+    }
     return el
 }
