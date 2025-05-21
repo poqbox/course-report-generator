@@ -308,3 +308,40 @@ function dataToTableElement(data) {
     }
     return el
 }
+
+
+
+
+// output nav bar
+let outputNavEl = document.getElementById("output-switcher")
+let textOutputNav = outputNavEl.appendChild(document.createElement("a"))
+textOutputNav.textContent = "Output"
+textOutputNav.addEventListener("click", (e) => {
+    e.preventDefault()
+    outputBoxEl.innerHTML = ""
+    outputBoxEl.append(dataToTextElement(data))
+})
+
+let csvOutputNav = outputNavEl.appendChild(document.createElement("a"))
+csvOutputNav.textContent = ".csv"
+csvOutputNav.addEventListener("click", (e) => {
+    e.preventDefault()
+    outputBoxEl.innerHTML = ""
+    outputBoxEl.append(dataToCsvElement(data))
+})
+
+let jsonOutputNav = outputNavEl.appendChild(document.createElement("a"))
+jsonOutputNav.textContent = ".json"
+jsonOutputNav.addEventListener("click", (e) => {
+    e.preventDefault()
+    outputBoxEl.innerHTML = ""
+    outputBoxEl.append(dataToJsonElement(data))
+})
+
+let tableOutputNav = outputNavEl.appendChild(document.createElement("a"))
+tableOutputNav.textContent = "table"
+tableOutputNav.addEventListener("click", (e) => {
+    e.preventDefault()
+    outputBoxEl.innerHTML = ""
+    outputBoxEl.append(dataToTableElement(data))
+})
