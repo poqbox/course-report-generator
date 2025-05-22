@@ -49,4 +49,8 @@ pre {
     position: fixed;
     top: 40px;
     right: 0;
+    overflow-y: scroll;
+    height: 90vh;
+    background-color: aliceblue;
+    padding: 4px;
 }
