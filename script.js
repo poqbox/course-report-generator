@@ -418,8 +418,9 @@ inputFormEl.addEventListener("submit", (e) => {
     }
 
     console.log(LearnerSubmissions)
+    data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)
     outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToTextElement(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)))
+    outputBoxEl.append(dataToTextElement(data))
 })
 
 
