@@ -378,3 +378,46 @@ inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
     })
     submissions_container.append(submissionFrag)
 })
+
+
+inputFormEl.addEventListener("submit", (e) => {
+    e.preventDefault()
+    CourseInfo.id = inputFormEl.elements["course-id"].value
+    CourseInfo.name = inputFormEl.elements["course-name"].value
+    AssignmentGroup.id = inputFormEl.elements["group-id"].value
+    AssignmentGroup.name = inputFormEl.elements["group-name"].value
+    AssignmentGroup.course_id = inputFormEl.elements["course-id-ref"].value
+    AssignmentGroup.group_weight = Number(inputFormEl.elements["group-weight"].value)
+    AssignmentGroup.assignments.length = 0
+    LearnerSubmissions.length = 0
+
+    for (let fieldset of assignments_container.children) {
+        if (fieldset.tagName === "FIELDSET") {
+            let obj = {
+                id: fieldset.elements["assignment-id"].value,
+                name: fieldset.elements["assignment-name"].value,
+                due_at: fieldset.elements["assignment-due-date"].value,
+                points_possible: Number(fieldset.elements["points-possible"].value)
+            }
+            AssignmentGroup.assignments.push(obj)
+        }
+    }
+
+    for (let fieldset of submissions_container.children) {
+        if (fieldset.tagName === "FIELDSET") {
+            let obj = {
+                learner_id: fieldset.elements["learner-id"].value,
+                assignment_id: fieldset.elements["assignment-id"].value,
+                submission: {
+                    submitted_at: fieldset.elements["submitted-at"].value,
+                    score: Number(fieldset.elements["score"].value)
+                }
+            }
+            LearnerSubmissions.push(obj)
+        }
+    }
+
+    console.log(LearnerSubmissions)
+    outputBoxEl.innerHTML = ""
+    outputBoxEl.append(dataToTextElement(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)))
+})
