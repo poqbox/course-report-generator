@@ -322,11 +322,33 @@ for (let obj of nav_data) {
 
 // input form
 const inputFormEl = document.querySelector("#input-sidebar>form")
-const assignment_template = document.getElementById("assignment-template")
 const assignments_container = document.getElementById("assignments-container")
+const submissions_container = document.getElementById("submissions-container")
+const assignment_template = document.getElementById("assignment-template")
+const submissions_template = document.getElementById("submission-template")
 inputFormEl.elements["course-id"].setAttribute("value", CourseInfo.id)
 inputFormEl.elements["course-name"].setAttribute("value", CourseInfo.name)
 inputFormEl.elements["group-id"].setAttribute("value", AssignmentGroup.id)
 inputFormEl.elements["group-name"].setAttribute("value", AssignmentGroup.name)
 inputFormEl.elements["course-id-ref"].setAttribute("value", AssignmentGroup.course_id)
 inputFormEl.elements["group-weight"].setAttribute("value", AssignmentGroup.group_weight)
+
+
+inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
+    const assignmentFrag = assignment_template.content.cloneNode(true)
+    const assignmentEl = assignmentFrag.firstElementChild
+    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+        e.currentTarget.parentElement.remove()
+    })
+    assignments_container.append(assignmentFrag)
+})
+
+
+inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
+    const assignmentFrag = submissions_template.content.cloneNode(true)
+    const assignmentEl = assignmentFrag.firstElementChild
+    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+        e.currentTarget.parentElement.remove()
+    })
+    submissions_container.append(assignmentFrag)
+})
