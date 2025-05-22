@@ -316,3 +316,17 @@ for (let obj of nav_data) {
         outputBoxEl.append(obj.element_creator(data))
     })
 }
+
+
+
+
+// input form
+const inputFormEl = document.querySelector("#input-sidebar>form")
+const assignment_template = document.getElementById("assignment-template")
+const assignments_container = document.getElementById("assignments-container")
+inputFormEl.elements["course-id"].setAttribute("value", CourseInfo.id)
+inputFormEl.elements["course-name"].setAttribute("value", CourseInfo.name)
+inputFormEl.elements["group-id"].setAttribute("value", AssignmentGroup.id)
+inputFormEl.elements["group-name"].setAttribute("value", AssignmentGroup.name)
+inputFormEl.elements["course-id-ref"].setAttribute("value", AssignmentGroup.course_id)
+inputFormEl.elements["group-weight"].setAttribute("value", AssignmentGroup.group_weight)
