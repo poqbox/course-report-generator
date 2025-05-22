@@ -421,3 +421,19 @@ inputFormEl.addEventListener("submit", (e) => {
     outputBoxEl.innerHTML = ""
     outputBoxEl.append(dataToTextElement(getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)))
 })
+
+
+// sidebar-hider
+const inputSidebarEl = document.getElementById("input-sidebar")
+const sidebarHiderEl = document.getElementById("sidebar-hider")
+sidebarHiderEl.addEventListener("click", (e) => {
+    e.preventDefault()
+    if (inputSidebarEl.classList.contains("opened")) {
+        inputSidebarEl.style.right = "-400px"
+        inputSidebarEl.classList.replace("opened", "closed")
+    }
+    else if (inputSidebarEl.classList.contains("closed")) {
+        inputSidebarEl.style.right = "0"
+        inputSidebarEl.classList.replace("closed", "opened")
+    }
+})
