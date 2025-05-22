@@ -347,16 +347,16 @@ for (const assignment of AssignmentGroup.assignments) {
     assignments_container.append(assignmentFrag)
 }
 for (const submission of LearnerSubmissions) {
-    const assignmentFrag = submissions_template.content.cloneNode(true)
-    const assignmentEl = assignmentFrag.firstElementChild
-    assignmentEl.elements["learner-id"].value = submission.learner_id
-    assignmentEl.elements["assignment-id"].value = submission.assignment_id
-    assignmentEl.elements["submitted-at"].value = submission.submission.submitted_at
-    assignmentEl.elements["score"].value = submission.submission.score
-    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+    const submissionFrag = submissions_template.content.cloneNode(true)
+    const submissionEl = submissionFrag.firstElementChild
+    submissionEl.elements["learner-id"].value = submission.learner_id
+    submissionEl.elements["assignment-id"].value = submission.assignment_id
+    submissionEl.elements["submitted-at"].value = submission.submission.submitted_at
+    submissionEl.elements["score"].value = submission.submission.score
+    submissionEl.lastElementChild.addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
     })
-    submissions_container.append(assignmentFrag)
+    submissions_container.append(submissionFrag)
 }
 
 
@@ -371,10 +371,10 @@ inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
 
 
 inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
-    const assignmentFrag = submissions_template.content.cloneNode(true)
-    const assignmentEl = assignmentFrag.firstElementChild
-    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+    const submissionFrag = submissions_template.content.cloneNode(true)
+    const submissionEl = submissionFrag.firstElementChild
+    submissionEl.lastElementChild.addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
     })
-    submissions_container.append(assignmentFrag)
+    submissions_container.append(submissionFrag)
 })
