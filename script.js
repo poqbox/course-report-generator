@@ -334,6 +334,32 @@ inputFormEl.elements["course-id-ref"].setAttribute("value", AssignmentGroup.cour
 inputFormEl.elements["group-weight"].setAttribute("value", AssignmentGroup.group_weight)
 
 
+for (const assignment of AssignmentGroup.assignments) {
+    const assignmentFrag = assignment_template.content.cloneNode(true)
+    const assignmentEl = assignmentFrag.firstElementChild
+    assignmentEl.elements["assignment-id"].value = assignment.id
+    assignmentEl.elements["assignment-name"].value = assignment.name
+    assignmentEl.elements["assignment-due-date"].value = assignment.due_at
+    assignmentEl.elements["points-possible"].value = assignment.points_possible
+    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+        e.currentTarget.parentElement.remove()
+    })
+    assignments_container.append(assignmentFrag)
+}
+for (const submission of LearnerSubmissions) {
+    const assignmentFrag = submissions_template.content.cloneNode(true)
+    const assignmentEl = assignmentFrag.firstElementChild
+    assignmentEl.elements["learner-id"].value = submission.learner_id
+    assignmentEl.elements["assignment-id"].value = submission.assignment_id
+    assignmentEl.elements["submitted-at"].value = submission.submission.submitted_at
+    assignmentEl.elements["score"].value = submission.submission.score
+    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+        e.currentTarget.parentElement.remove()
+    })
+    submissions_container.append(assignmentFrag)
+}
+
+
 inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
     const assignmentFrag = assignment_template.content.cloneNode(true)
     const assignmentEl = assignmentFrag.firstElementChild
