@@ -430,6 +430,7 @@ inputFormEl.addEventListener("submit", (e) => {
     data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)
     outputBoxEl.innerHTML = ""
     outputBoxEl.append(dataToTextElement(data))
+    window.scroll({top: 0, behavior: "smooth"})
 })
 
 
