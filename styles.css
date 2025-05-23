@@ -2,15 +2,15 @@
     margin: 0;
 }
 
-body {
-    margin-bottom: 100px;
-}
 
-
-#main, body>h1 {
+#main {
     margin: auto;
-    max-width: 800px;
+    max-width: 600px;
     width: 100%;
+    padding: 20px;
+    padding-bottom: 100px;
+    border: 2px solid black;
+    border-radius: 12px;
 }
 pre {
     white-space: pre-wrap;
@@ -44,12 +44,12 @@ pre {
     }
 
     #output-box {
-        max-width: 600px;
         border: 1px solid black;
         padding: 4px;
         font-family: monospace;
         overflow-x: auto;
         word-wrap: break-word;
+        background-color: white;
 
         table {
             border-collapse: collapse;

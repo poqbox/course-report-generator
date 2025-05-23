@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Course Report Generator</h1>
     <div id="input-sidebar" class="opened">
         <header>
-            <h1>Enter data:</h1>
+            <h2>Enter data:</h2>
             <a id="sidebar-hider" href="#"><h1>≡</h1></a>
         </header>
         <form>
             <fieldset>
-                <h2>Course Info</h2>
+                <h3>Course Info</h3>
                 <label>Course ID:
                     <input name="course-id" type="text" required></label><br>
                 <label>Course Name:
@@ -23,7 +22,7 @@
             </fieldset>
 
             <fieldset>
-                <h2>Assignment Group</h2>
+                <h3>Assignment Group</h3>
                 <label>Group ID:
                     <input name="group-id" type="text" required></label><br>
                 <label>Group Name:
@@ -52,7 +51,7 @@
             </fieldset>
 
             <fieldset>
-                <h2>Learner Submissions</h2>
+                <h3>Learner Submissions</h3>
                 <div id="submissions-container">
                     <template id="submission-template">
                         <fieldset>
@@ -74,6 +73,7 @@
         </form>
     </div>
     <div id="main">
+        <h1>Course Report Generator</h1>
         <div id="output-container">
             <nav id="output-switcher"></nav>
             <div id="output-box"></div>
