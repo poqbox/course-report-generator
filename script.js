@@ -443,14 +443,6 @@ inputFormEl.addEventListener("submit", (e) => {
 
 
 
-// sidebar
-function resize() {
-    inputSidebarEl.style.height = window.innerHeight - 80 + "px"
-}
-
-window.onresize = resize
-
-
 // sidebar-hider
 const sidebarHiderEl = document.getElementById("sidebar-hider")
 sidebarHiderEl.addEventListener("click", (e) => {
@@ -464,3 +456,7 @@ sidebarHiderEl.addEventListener("click", (e) => {
         inputSidebarEl.classList.replace("closed", "opened")
     }
 })
+
+
+// meta
+window.onresize = function() {inputSidebarEl.style.height = window.innerHeight - 80 + "px"}
