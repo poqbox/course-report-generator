@@ -122,53 +122,50 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
 
                     // find matching submission
                     for (const submission of submissions_as_arr) {
-                        if (submission.learner_id == learner_id) {
+                        if (submission.learner_id == learner_id && submission.assignment_id == assignment_id) {
                             const submitted_at = submission.submission.submitted_at.split("-").slice(0, 2).map((_) => Number(_));
+                            let score = submission.submission.score;
+                            let max_points;
+                            assignment_submitted = true;
 
-                            if (submission.assignment_id == assignment_id) {
-                                let score = submission.submission.score;
-                                let max_points;
-                                assignment_submitted = true;
+                            try {
+                                max_points = assignment.points_possible;
+                                if (max_points === 0) {
+                                    // an assignment's possible points should not be 0
+                                    throw new Error(`possible_points cannot be 0 (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
+                                }
+                                else if (max_points <= 0) {
+                                    // an assignment's possible points should be positive
+                                    throw new Error(`possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
+                                }
 
-                                try {
-                                    max_points = assignment.points_possible;
-                                    if (max_points === 0) {
-                                        // an assignment's possible points should not be 0
-                                        throw new Error(`possible_points cannot be 0 (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
-                                    }
-                                    else if (max_points <= 0) {
-                                        // an assignment's possible points should be positive
-                                        throw new Error(`possible_points cannot be negative (assignment_group=${assignment_group.id}, assignment_id=${assignment.id})`);
-                                    }
-
-                                    // account for late submissions
-                                    let late = false;
-                                    if (submitted_at[0] > due_date[0])
+                                // account for late submissions
+                                let late = false;
+                                if (submitted_at[0] > due_date[0])
+                                    late = true;
+                                else if (submitted_at[0] === due_date[0]){
+                                    if (submitted_at[1] > due_date[1])
                                         late = true;
-                                    else if (submitted_at[0] === due_date[0]){
-                                        if (submitted_at[1] > due_date[1])
+                                    else if (submitted_at[1] === due_date[1]){
+                                        if (submitted_at[2] > due_date[2])
                                             late = true;
-                                        else if (submitted_at[1] === due_date[1]){
-                                            if (submitted_at[2] > due_date[2])
-                                                late = true;
-                                        }
                                     }
-                                    if (late) {
-                                        score -= max_points * 0.1;
-                                        if (score < 0)
-                                            score = 0;
-                                    }
+                                }
+                                if (late) {
+                                    score -= max_points * 0.1;
+                                    if (score < 0)
+                                        score = 0;
+                                }
 
-                                    score /= max_points;
-                                }
-                                catch (error) {
-                                    console.log(error);
-                                    score = error;
-                                }
-                                finally {
-                                    learner[id_prefix + assignment_id] = score;
-                                    break;
-                                }
+                                score /= max_points;
+                            }
+                            catch (error) {
+                                console.log(error);
+                                score = error;
+                            }
+                            finally {
+                                learner[id_prefix + assignment_id] = score;
+                                break;
                             }
                         }
                     }
