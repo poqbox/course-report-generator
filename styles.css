@@ -33,6 +33,14 @@ pre {
             margin-right: 8px;
             padding: 2px 4px;
         }
+        a:hover {
+            background-color: lightgray;
+        }
+        a.active {
+            background-color: lightgray;
+            box-shadow: 0 0 1px;
+            height: 24px;
+        }
     }
 
     #output-box {

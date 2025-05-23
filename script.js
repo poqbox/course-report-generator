@@ -305,23 +305,28 @@ function dataToTableElement(data) {
 
 
 // output nav-bar
-let nav_data = [
-    {text: "Output", element_creator: dataToTextElement},
-    {text: ".csv", element_creator: dataToCsvElement},
-    {text: ".json", element_creator: dataToJsonElement},
-    {text: "table", element_creator: dataToTableElement}
-]
+let nav_item_creator_ref = {
+    "Output": dataToTextElement,
+    ".csv": dataToCsvElement,
+    ".json": dataToJsonElement,
+    "table": dataToTableElement
+}
 
 let outputNavEl = document.getElementById("output-switcher")
-for (let obj of nav_data) {
+for (let key in nav_item_creator_ref) {
     let nav_item = outputNavEl.appendChild(document.createElement("a"))
-    nav_item.textContent = obj.text
+    nav_item.textContent = key
     nav_item.addEventListener("click", (e) => {
         e.preventDefault()
+        for (let item of outputNavEl.children) {
+            item.classList.remove("active")
+        }
+        e.currentTarget.classList.add("active")
         outputBoxEl.innerHTML = ""
-        outputBoxEl.append(obj.element_creator(data))
+        outputBoxEl.append(nav_item_creator_ref[key](data))
     })
 }
+outputNavEl.firstChild.classList.add("active")
 
 
 // output box
@@ -445,7 +450,8 @@ inputFormEl.addEventListener("submit", (e) => {
     console.log(LearnerSubmissions)
     data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions)
     outputBoxEl.innerHTML = ""
-    outputBoxEl.append(dataToTextElement(data))
+    let active_output = document.querySelector("#output-switcher .active").textContent
+    outputBoxEl.append(nav_item_creator_ref[active_output](data))
     window.scroll({top: 0, behavior: "smooth"})
 })
 
