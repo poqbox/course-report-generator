@@ -398,6 +398,15 @@ inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
 
 inputFormEl.addEventListener("submit", (e) => {
     e.preventDefault()
+
+    // additional validation
+    let course_id = inputFormEl.elements["course-id"].value
+    let course_id_ref = inputFormEl.elements["course-id-ref"].value
+    if (course_id_ref !== course_id) {
+        alert("Assignment group's Course ID does not match the provided Course ID")
+        return
+    }
+
     CourseInfo.id = inputFormEl.elements["course-id"].value
     CourseInfo.name = inputFormEl.elements["course-name"].value
     AssignmentGroup.id = inputFormEl.elements["group-id"].value
