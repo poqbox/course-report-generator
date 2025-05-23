@@ -237,7 +237,11 @@ function dataToText(learner_data) {
         let learner_obj = learner_data[i]
         output += "\n{"
         for (let property in learner_obj) {
-            output += `\n    ${property}: ${learner_obj[property]}`
+            let value = learner_obj[property]
+            if (typeof(value) === "number") {
+                value = Math.floor(value * 100) / 100
+            }
+            output += `\n    ${property}: ${value}`
         }
         output += "\n}"
     }
@@ -295,7 +299,7 @@ function dataToTableElement(data) {
         const tr = tb.appendChild(document.createElement("tr"))
         for (let value of Object.values(obj)) {
             const td = tr.appendChild(document.createElement("td"))
-            td.textContent = value
+            td.textContent = (typeof(value) === "number") ? Math.floor(value * 100) / 100 : value
         }
     }
     return el
