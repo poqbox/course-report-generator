@@ -12,9 +12,6 @@ body {
     max-width: 800px;
     width: 100%;
 }
-pre {
-    margin: 0;
-}
 
 
 #output-container {
