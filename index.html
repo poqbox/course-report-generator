@@ -31,7 +31,7 @@
                 <label>Course ID:
                     <input name="course-id-ref" type="text" required></label><br>
                 <label>Weight:
-                    <input name="group-weight" type="text" required></label><br>
+                    <input name="group-weight" type="text" required pattern="^\d+$" title="Please enter a number."></label><br>
 
                 <div id="assignments-container">
                     <template id="assignment-template">
@@ -41,9 +41,9 @@
                             <label>Assignment Name:
                                 <input name="assignment-name" type="text" required></label><br>
                             <label>Due Date:
-                                <input name="assignment-due-date" type="text" required></label><br>
+                                <input name="assignment-due-date" type="date" required></label><br>
                             <label>Possible Points:
-                                <input name="points-possible" type="text" required></label><br>
+                                <input name="points-possible" type="text" required pattern="^\d+$" title="Please enter a number."></label><br>
                             <input name="remove-assignment" type="button" value="-">
                         </fieldset>
                     </template>
@@ -61,9 +61,9 @@
                             <label>Assignment ID:
                                 <input name="assignment-id" type="text" required></label><br>
                             <label>Date Submitted:
-                                <input name="submitted-at" type="text" required></label><br>
+                                <input name="submitted-at" type="date" required></label><br>
                             <label>Score:
-                                <input name="score" type="text" required></label><br>
+                                <input name="score" type="text" required pattern="^\d+$" title="Please enter a number."></label><br>
                             <input name="remove-submission" type="button" value="-">
                         </fieldset>
                     </template>
