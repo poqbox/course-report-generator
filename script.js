@@ -239,7 +239,6 @@ function dataToText(learner_data) {
     return output
 }
 
-
 function dataToCsv(learner_data) {
     let output = Object.keys(learner_data[0]).join(",")
     for (let i=0; i < learner_data.length; i++) {
@@ -257,16 +256,13 @@ console.log(dataToText(data))
 
 
 
-const outputBoxEl = document.getElementById("output-box")
-outputBoxEl.append(dataToTextElement(data))
 
-
+// HTML stuff
 function dataToTextElement(data) {
     const el = document.createElement("pre")
     el.textContent = dataToText(data)
     return el
 }
-
 
 function dataToCsvElement(data) {
     const el = document.createElement("pre")
@@ -274,13 +270,11 @@ function dataToCsvElement(data) {
     return el
 }
 
-
 function dataToJsonElement(data) {
     const el = document.createElement("pre")
     el.textContent = JSON.stringify(data)
     return el
 }
-
 
 function dataToTableElement(data) {
     const el = document.createElement("table")
@@ -305,7 +299,7 @@ function dataToTableElement(data) {
 
 
 
-// output nav bar
+// output nav-bar
 let nav_data = [
     {text: "Output", element_creator: dataToTextElement},
     {text: ".csv", element_creator: dataToCsvElement},
@@ -325,6 +319,11 @@ for (let obj of nav_data) {
 }
 
 
+// output box
+const outputBoxEl = document.getElementById("output-box")
+outputBoxEl.append(dataToTextElement(data))
+
+
 
 
 // input form
@@ -339,7 +338,6 @@ inputFormEl.elements["group-id"].setAttribute("value", AssignmentGroup.id)
 inputFormEl.elements["group-name"].setAttribute("value", AssignmentGroup.name)
 inputFormEl.elements["course-id-ref"].setAttribute("value", AssignmentGroup.course_id)
 inputFormEl.elements["group-weight"].setAttribute("value", AssignmentGroup.group_weight)
-
 
 for (const assignment of AssignmentGroup.assignments) {
     const assignmentFrag = assignment_template.content.cloneNode(true)
@@ -367,6 +365,7 @@ for (const submission of LearnerSubmissions) {
 }
 
 
+// input form EventListeners
 inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
     const assignmentFrag = assignment_template.content.cloneNode(true)
     const assignmentEl = assignmentFrag.firstElementChild
@@ -376,7 +375,6 @@ inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
     assignments_container.append(assignmentFrag)
 })
 
-
 inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
     const submissionFrag = submissions_template.content.cloneNode(true)
     const submissionEl = submissionFrag.firstElementChild
@@ -385,7 +383,6 @@ inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
     })
     submissions_container.append(submissionFrag)
 })
-
 
 inputFormEl.addEventListener("submit", (e) => {
     e.preventDefault()
@@ -429,6 +426,8 @@ inputFormEl.addEventListener("submit", (e) => {
     outputBoxEl.innerHTML = ""
     outputBoxEl.append(dataToTextElement(data))
 })
+
+
 
 
 // sidebar-hider
