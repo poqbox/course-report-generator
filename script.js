@@ -332,6 +332,7 @@ outputBoxEl.append(dataToTextElement(data))
 
 
 // input form
+const inputSidebarEl = document.getElementById("input-sidebar")
 const inputFormEl = document.querySelector("#input-sidebar>form")
 const assignments_container = document.getElementById("assignments-container")
 const submissions_container = document.getElementById("submissions-container")
@@ -353,6 +354,7 @@ for (const assignment of AssignmentGroup.assignments) {
     assignmentEl.elements["points-possible"].value = assignment.points_possible
     assignmentEl.elements["remove-assignment"].addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
+        inputSidebarEl.scrollBy({top: -128, behavior: "smooth"})
     })
     assignments_container.append(assignmentFrag)
 }
@@ -365,6 +367,7 @@ for (const submission of LearnerSubmissions) {
     submissionEl.elements["score"].value = submission.submission.score
     submissionEl.elements["remove-submission"].addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
+        inputSidebarEl.scrollBy({top: -128, behavior: "smooth"})
     })
     submissions_container.append(submissionFrag)
 }
@@ -376,8 +379,10 @@ inputFormEl.elements["add-assignment"].addEventListener("click", (e) => {
     const assignmentEl = assignmentFrag.firstElementChild
     assignmentEl.lastElementChild.addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
+        inputSidebarEl.scrollBy({top: -128, behavior: "smooth"})
     })
     assignments_container.append(assignmentFrag)
+    inputSidebarEl.scrollBy({top: 128, behavior: "smooth"})
 })
 
 inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
@@ -385,8 +390,10 @@ inputFormEl.elements["add-submission"].addEventListener("click", (e) => {
     const submissionEl = submissionFrag.firstElementChild
     submissionEl.lastElementChild.addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
+        inputSidebarEl.scrollBy({top: -128, behavior: "smooth"})
     })
     submissions_container.append(submissionFrag)
+    inputSidebarEl.scrollBy({top: 128, behavior: "smooth"})
 })
 
 inputFormEl.addEventListener("submit", (e) => {
@@ -441,7 +448,6 @@ function resize() {
     inputSidebarEl.style.height = window.innerHeight - 80 + "px"
 }
 
-const inputSidebarEl = document.getElementById("input-sidebar")
 window.onresize = resize
 
 
