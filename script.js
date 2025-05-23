@@ -191,6 +191,7 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
     }
     catch (error) {
         console.log(error);
+        alert(error);
         return [];
     }
 }
