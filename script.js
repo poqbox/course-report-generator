@@ -351,7 +351,7 @@ for (const assignment of AssignmentGroup.assignments) {
     assignmentEl.elements["assignment-name"].value = assignment.name
     assignmentEl.elements["assignment-due-date"].value = assignment.due_at
     assignmentEl.elements["points-possible"].value = assignment.points_possible
-    assignmentEl.lastElementChild.addEventListener("click", (e) => {
+    assignmentEl.elements["remove-assignment"].addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
     })
     assignments_container.append(assignmentFrag)
@@ -363,7 +363,7 @@ for (const submission of LearnerSubmissions) {
     submissionEl.elements["assignment-id"].value = submission.assignment_id
     submissionEl.elements["submitted-at"].value = submission.submission.submitted_at
     submissionEl.elements["score"].value = submission.submission.score
-    submissionEl.lastElementChild.addEventListener("click", (e) => {
+    submissionEl.elements["remove-submission"].addEventListener("click", (e) => {
         e.currentTarget.parentElement.remove()
     })
     submissions_container.append(submissionFrag)
