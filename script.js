@@ -254,7 +254,7 @@ function dataToCsv(learner_data) {
 
 
 const current_date = [2025, 1, 1];
-const id_prefix = "#";
+let id_prefix = "#";
 
 let data = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 console.log(dataToText(data))
@@ -471,6 +471,35 @@ sidebarHiderEl.addEventListener("click", (e) => {
         inputSidebarEl.classList.replace("closed", "opened")
     }
 })
+
+
+
+
+// assignment prefix updater
+const assignmentPrefixInputEl = document.getElementById("assignment-prefix-input")
+assignmentPrefixInputEl.setAttribute("value", id_prefix)
+assignmentPrefixInputEl.addEventListener("change", () => {
+    if (!assignmentPrefixInputEl.validity.valid)
+        return
+
+    const new_id_prefix = assignmentPrefixInputEl.value
+    for(const learner of data) {
+        for (const property in learner) {
+            if (property.startsWith(id_prefix)) {
+                const id = property.slice(id_prefix.length)
+                learner[new_id_prefix + id] = learner[property]
+                delete learner[property]
+            }
+        }
+    }
+    id_prefix = new_id_prefix
+
+    outputBoxEl.innerHTML = ""
+    let active_output = document.querySelector("#output-switcher .active").textContent
+    outputBoxEl.append(nav_item_creator_ref[active_output](data))
+})
+
+
 
 
 // meta

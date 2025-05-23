@@ -58,6 +58,11 @@ pre {
             border: 1px solid black;
         }
     }
+
+    #assignment-prefix-input {
+        font-family: monospace;
+        width: 80px
+    }
 }
 
 
