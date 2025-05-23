@@ -435,8 +435,16 @@ inputFormEl.addEventListener("submit", (e) => {
 
 
 
-// sidebar-hider
+// sidebar
+function resize() {
+    inputSidebarEl.style.height = window.innerHeight - 80 + "px"
+}
+
 const inputSidebarEl = document.getElementById("input-sidebar")
+window.onresize = resize
+
+
+// sidebar-hider
 const sidebarHiderEl = document.getElementById("sidebar-hider")
 sidebarHiderEl.addEventListener("click", (e) => {
     e.preventDefault()
