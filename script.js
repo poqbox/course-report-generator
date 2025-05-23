@@ -102,6 +102,10 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             for (const learner of learner_data) {
                 const learner_id = learner.id;
 
+                if (assignments.length === 0) {
+                    // array should not be empty
+                    throw new Error("assignments in assignment_group is empty");
+                }
                 for (const assignment of assignments) {
                     const due_date = assignment.due_at.split("-").slice(0, 3).map((_) => Number(_));
 
