@@ -101,27 +101,34 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
             // get submissions by student
             for (const learner of learner_data) {
                 const learner_id = learner.id;
-                for (const submission of submissions_as_arr) {
-                    if (submission.learner_id == learner_id) {
-                        const assignment_id = submission.assignment_id;
-                        const submitted_at = submission.submission.submitted_at.split("-").slice(0, 2).map((_) => Number(_));
-                        let score = submission.submission.score;
-                        let max_points;
-                        for (const assignment of assignments) {
-                            if (assignment.id == assignment_id) {
-                                const due_date = assignment.due_at.split("-").slice(0, 3).map((_) => Number(_));
 
-                                // account for not-yet-due assignments
-                                if (due_date[0] > current_date[0])
-                                    break;
-                                else if (due_date[0] === current_date[0]){
-                                    if (due_date[1] > current_date[1])
-                                        break;
-                                    else if (due_date[1] === current_date[1]){
-                                        if (due_date[2] > current_date[2])
-                                            break;
-                                    }
-                                }
+                for (const assignment of assignments) {
+                    const due_date = assignment.due_at.split("-").slice(0, 3).map((_) => Number(_));
+
+                    // account for not-yet-due assignments
+                    if (due_date[0] > current_date[0])
+                        continue;
+                    else if (due_date[0] === current_date[0]){
+                        if (due_date[1] > current_date[1])
+                            continue;
+                        else if (due_date[1] === current_date[1]){
+                            if (due_date[2] > current_date[2])
+                                continue;
+                        }
+                    }
+
+                    const assignment_id = assignment.id;
+                    let assignment_submitted = false;
+
+                    // find matching submission
+                    for (const submission of submissions_as_arr) {
+                        if (submission.learner_id == learner_id) {
+                            const submitted_at = submission.submission.submitted_at.split("-").slice(0, 2).map((_) => Number(_));
+
+                            if (submission.assignment_id == assignment_id) {
+                                let score = submission.submission.score;
+                                let max_points;
+                                assignment_submitted = true;
 
                                 try {
                                     max_points = assignment.points_possible;
@@ -164,6 +171,9 @@ function getLearnerData(course_info, assignment_group, submissions_as_arr) {
                                 }
                             }
                         }
+                    }
+                    if (!assignment_submitted) {
+                        learner[id_prefix + assignment_id] = 0;
                     }
                 }
             }
