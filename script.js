@@ -267,42 +267,44 @@ console.log(dataToText(data))
 
 
 // HTML stuff
-function dataToTextElement(data) {
-    const el = document.createElement("pre")
-    el.textContent = dataToText(data)
-    return el
-}
-
-function dataToCsvElement(data) {
-    const el = document.createElement("pre")
-    el.textContent = dataToCsv(data)
-    return el
-}
-
-function dataToJsonElement(data) {
-    const el = document.createElement("pre")
-    el.textContent = JSON.stringify(data)
-    return el
-}
-
-function dataToTableElement(data) {
-    const el = document.createElement("table")
-    const th = el.appendChild(document.createElement("thead"))
-    const tb = el.appendChild(document.createElement("tbody"))
-
-    let header_row = th.appendChild(document.createElement("tr"))
-    for (let key of Object.keys(data[0])) {
-        let td = header_row.appendChild(document.createElement("td"))
-        td.textContent = key
+class GenerateElement {
+    static dataToTextElement(data) {
+        const el = document.createElement("pre")
+        el.textContent = dataToText(data)
+        return el
     }
-    for (let obj of data) {
-        const tr = tb.appendChild(document.createElement("tr"))
-        for (let value of Object.values(obj)) {
-            const td = tr.appendChild(document.createElement("td"))
-            td.textContent = (typeof(value) === "number") ? Math.floor(value * 100) / 100 : value
+
+    static dataToCsvElement(data) {
+        const el = document.createElement("pre")
+        el.textContent = dataToCsv(data)
+        return el
+    }
+
+    static dataToJsonElement(data) {
+        const el = document.createElement("pre")
+        el.textContent = JSON.stringify(data)
+        return el
+    }
+
+    static dataToTableElement(data) {
+        const el = document.createElement("table")
+        const th = el.appendChild(document.createElement("thead"))
+        const tb = el.appendChild(document.createElement("tbody"))
+
+        let header_row = th.appendChild(document.createElement("tr"))
+        for (let key of Object.keys(data[0])) {
+            let td = header_row.appendChild(document.createElement("td"))
+            td.textContent = key
         }
+        for (let obj of data) {
+            const tr = tb.appendChild(document.createElement("tr"))
+            for (let value of Object.values(obj)) {
+                const td = tr.appendChild(document.createElement("td"))
+                td.textContent = (typeof(value) === "number") ? Math.floor(value * 100) / 100 : value
+            }
+        }
+        return el
     }
-    return el
 }
 
 
@@ -310,10 +312,10 @@ function dataToTableElement(data) {
 
 // output nav-bar
 let nav_item_creator_ref = {
-    "Output": dataToTextElement,
-    ".csv": dataToCsvElement,
-    ".json": dataToJsonElement,
-    "table": dataToTableElement
+    "Output": GenerateElement.dataToTextElement,
+    ".csv": GenerateElement.dataToCsvElement,
+    ".json": GenerateElement.dataToJsonElement,
+    "table": GenerateElement.dataToTableElement
 }
 
 let outputNavEl = document.getElementById("output-switcher")
@@ -335,7 +337,7 @@ outputNavEl.firstChild.classList.add("active")
 
 // output box
 const outputBoxEl = document.getElementById("output-box")
-outputBoxEl.append(dataToTextElement(data))
+outputBoxEl.append(GenerateElement.dataToTextElement(data))
 
 
 
